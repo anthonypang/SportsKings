@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assets/stylesheets/style.css">
+    <title>My connections</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <% if(userConnections.length < 1){ %>
+        <h2>You do not have any connections</h2>
+        <h3>To add connections, please go to the connections tab</h3>
+    <%}else{%>
+    <h3>Your Connections</h3>
+    <table>
+        <tr>
+            <th>Connection</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        <form method="POST">
+            <% for(let i = 0; i<userConnections.length; i++) { %>
+            <tr>
+                <td><%= userConnections[i].connection.name %></td>
+                <td><%= userConnections[i].connection.topic %></td>
+                <td><%= userConnections[i].rsvp %></td>
+                <td>
+                   
+                    <button type="button">
+                    <a href="/connections?connectionId=<%= userConnections[i].connection.id %>">Update</a>
+                    </button>
+                    <button type="submit"  name="id" value="<%=userConnections[i].connection.id%>" formaction="/savedConnections/delete">
+                        Delete
+                    </button> 
+                    
+                </td>
+            </tr>
+            <% } %>
+        </form>
+        <%}%>
+      
+
+
+    </table>
+    <%- include('partials/footer') %>
+</body>
+</html>

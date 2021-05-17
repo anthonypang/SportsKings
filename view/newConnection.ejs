@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/stylesheets/style.css">
+    <title>Add Connection</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <form method="POST" action="/connections/new"> 
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic"><br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="details">Details:</label>
+        <input type="text" id="details" name="details"><br>
+
+        <label for="where">Location:</label>
+        <input type="text" id="location" name="location"><br>
+
+        <label for="when">Date:</label>
+        <input type="text" id="date" name="date"><br>
+
+        <label for="when">Time:</label>
+        <input type="text" id="time" name="time"><br>
+
+        <label for="when">Creator:</label>
+        <input type="text" id="creator" name="creator"><br>
+
+        <input type="submit" value="Create Connection"><br>
+    </form>
+    <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/stylesheets/style.css">
+    <title>Login</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <p>Please enter your email and password</p><br>
+    <form method="POST" action="/savedConnections/login">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="apang1@uncc.edu"><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+
+        <input type="submit" value="login"><br>
+    </form>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

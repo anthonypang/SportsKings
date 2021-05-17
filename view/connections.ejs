@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="../assets/stylesheets/style.css">
+        <title>Connections</title>
+    </head>
+<body>
+    <%- include('partials/header') %>
+    <div id="connections" class = connections>
+
+        <% for(let i = 0; i< data.topics.length; i++){ %>
+            <p><%=data.topics[i]%></p>
+            <ul>
+                <% for(let x = 0; x < data.connections.length; x++ ) { %>
+                    <% if (data.connections[x].topic == data.topics[i]) { %>
+                    <li><a href="/connections?connectionId=<%= data.connections[x].id %>"><%= data.connections[x].name %></a></li>
+                    <% } %>
+                <% } %>
+            </ul>
+            <br><br>
+        <% } %>
+
+        
+            
+    </div>
+    <%- include('partials/footer') %>
+</body>
+</html>

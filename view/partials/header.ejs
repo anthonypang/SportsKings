@@ -1,0 +1,17 @@
+<header>
+    <!--creates the navigation bar-->
+    <nav id="userBar" class="logo">
+        <a href="/"><img src="../assets/images/logo.jpg" alt="logo"></a>
+        <a href="/">Home</a>
+        <a href="/newConnection">Start a new connection</a>
+        <a href="/connections">Connections</a>
+        <% if(typeof user != 'undefined') {%>  
+            <a href="/savedConnections">My Connections</a>
+            <a href="/savedConnections/logout">Logout</a>
+            <a href="#">Welcome <%= user.firstname %></a>
+        <%} else { %>
+            <a href="/savedConnections">Login</a>
+        <% } %>
+    </nav>
+</header>
+<br><br>

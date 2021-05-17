@@ -1,0 +1,186 @@
+body {
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+ }
+.logo {
+    overflow: hidden;
+    background-color: #2c3338;
+    padding: 10px 10px;
+    text-align: right;
+    position: relative;
+    vertical-align: middle;
+}
+.logo a {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+    font-family: avenir, serif ;
+
+}
+.logo a:hover {
+    color: grey;
+}
+.logo img {
+    width: 100px;
+    border-radius: 50%;
+    float: left;
+    position: relative;
+
+}
+.navBar {
+    overflow: hidden;
+    text-align: center;
+    background-color: #2c3338;
+    padding: 10px;
+
+}
+.navBar a {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+    font-family: avenir, serif;
+}
+.navBar a:hover {
+    color: grey;
+}
+h2{
+    text-align: center;
+    font-family: Avenir, serif;
+}
+
+h3{
+    text-align: center;
+    font-family: Avenir, serif;
+
+}
+p{
+    text-align: center;
+    font-family: Avenir, serif;
+    font-size: 15px;
+    width: 100%;
+}
+table{
+    font-family: Avenir, serif;
+    border: solid 2px  black;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: center;
+    font-weight: bold;
+    font-family: avenir, serif;
+    padding: 5px 10px;
+    font-size: 1em;
+    color: black;
+    border: solid 1px black;
+}
+
+td {
+    text-align: center;
+    padding: 10px 40px;
+    color: black;
+    font-family: avenir, serif;
+    font-size: 15px;
+    border: solid 1px black;
+}
+button{
+    border: none;
+    cursor: pointer;
+}
+button a{
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+button a:hover{
+    color: white;
+}
+.connection img{
+    margin: auto;
+    display: block;
+    width: 150px;
+}
+.connection ul{
+    margin: 0 auto;
+    display: inline;
+    list-style-type: none;
+    text-align: center;
+    font-family: Avenir, serif;
+    font-size: 15px;
+}
+.connections ul{
+    width: 65%;
+    margin: 0 auto;
+    display: inline;
+    list-style-type: none;
+    text-align: center;
+    font-family: Avenir, serif;
+    font-size: 15px;
+}
+.connections li{
+    margin: 0 0 10px 0;
+}
+.connections p{
+
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
+}
+.connections a{
+    text-decoration: none;
+    color: black;
+}
+.connections a:hover{
+    color: gray;
+}
+.overview img{
+    margin: auto;
+    display: block;
+    width: 200px;
+}
+
+form {
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: whitesmoke;
+    border: 0px;
+    font-family: avenir;
+    padding-top: 10px;
+}
+
+input{
+    padding: 10px;
+    margin: 10px;
+    background: #f1f1f1;
+}
+
+/*styles for submit button*/
+.button{
+    background-color: lightblue;
+    width: 65%;
+    height: 50px;
+    border: none;
+}
+.button:hover{
+    color: white;
+
+}
+
+footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    color: white;
+    font-size: 14px;
+}
