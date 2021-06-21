@@ -12,12 +12,38 @@ var router = express.Router();
 
 
 
+router.post('/register', async function (req,res){
+    
+    let userDB = new UserDB()
+    let userProfileDB = new UserProfileDB()
+
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
+    let email = req.body.email;
+    let password = req.body.password;
+
+    userDB.createUser(firstname,lastname,email,password);
+
+    let user = await userDB.getUser(email);
+    let dbconnections= [];
+    
+    req.session.user = user
+    req.session.userProfile = new UserProfile(user, dbconnections)
+    
+    let data = {
+        userProfile: req.session.userProfile
+    }
+    
+    res.render('savedConnections', {user: data.userProfile.user, userConnections: data.userProfile.userConnections})
+})
+
 router.post('/login', async function (req,res){
     
     let userDB = new UserDB()
     let userProfileDB = new UserProfileDB()
     let email = req.body.email
-    let user = await userDB.getUser(email);
+    let password = req.body.password
+    let user = await userDB.getUser(email, password);
     let userProfile = await userProfileDB.getUserProfile(user.id);
     let dbconnections = [];
     for(let i = 0; i < userProfile.length; i++){

@@ -103,7 +103,7 @@ class ConnectionDB{
             newConnection.setCreator(doc.creator);
             newConnection.setDate(doc.date);
             newConnection.setTime(doc.time);
-            connectionItem.setLocation(doc.location);
+            newConnection.setLocation(doc.location);
             })
         })
     }
