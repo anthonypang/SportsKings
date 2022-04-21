@@ -4,70 +4,70 @@ const ConnectionDB = require('../utility/connectionDB');
 
 var router = express.Router();
 
-router.get('/', async function(req,res){
+router.get('/', async function (req, res) {
     let connectionId = req.query.connectionId
     console.log('testing')
-    if(validateId(connectionId)){
+    if (validateId(connectionId)) {
         console.log(connectionId)
         var connectionDB = new ConnectionDB();
         var connection = await connectionDB.getConnection(connectionId);
         let data = {
             'connection': connection
         }
-        if(req.session.userProfile){
-            res.render('connection', {user:req.session.userProfile.user, data: data})
-        } else{
-            res.render('connection', {data: data})
+        if (req.session.userProfile) {
+            res.render('connection', { user: req.session.userProfile.user, data: data })
+        } else {
+            res.render('connection', { data: data })
         }
-    } else{
+    } else {
         console.log('else')
         var connectionDB = new ConnectionDB();
         var connections = await connectionDB.getConnections();
         var topics = await connectionDB.getTopics();
-        
+
         let data = {
             'connections': connections,
             'topics': topics
         }
-        
-        if(req.session.userProfile){
-            res.render('connections', {user:req.session.userProfile.user, data: data})
-        } else{
-            res.render('connections', {data: data})
+
+        if (req.session.userProfile) {
+            res.render('connections', { user: req.session.userProfile.user, data: data })
+        } else {
+            res.render('connections', { data: data })
         }
     }
 });
 
-router.get('/connection/:connectionId', function(req,res){
+router.get('/connection/:connectionId', function (req, res) {
     let connectionId = req.params.connectionId
     let connection;
     console.log(connectionId)
-    if(validateId(connectionId)){
-        var connectionDB =new ConnectionDB();
+    if (validateId(connectionId)) {
+        var connectionDB = new ConnectionDB();
         connection = connectionDB.getConnection(connectionId);
-        connection = new Connection(connection.id, connection.name, connection.topic,connection.details, connection.creator, connection.date, connection.time)
+        connection = new Connection(connection.id, connection.name, connection.topic, connection.details, connection.creator, connection.date, connection.time)
         let data = {
             'connection': connection
         }
         console.log('data')
-        res.render('connection', {data: data})
-    } else{
+        res.render('connection', { data: data })
+    } else {
         res.redirect('/connections')
     }
 });
 
 
 
-router.get('/newConnection', function (req, res){
-    if(req.session.userProfile){
-        res.render('newConnection', {user:req.session.userProfile.user})
-    } else{
+router.get('/newConnection', function (req, res) {
+    if (req.session.userProfile) {
+        res.render('newConnection', { user: req.session.userProfile.user })
+    } else {
         res.render('newConnection')
     }
 })
 
 router.post('/new', (req, res) => {
-    if(req.session.userProfile){
+    if (req.session.userProfile) {
         let topic = req.body.topic
         let name = req.body.name
         let details = req.body.details
@@ -76,21 +76,21 @@ router.post('/new', (req, res) => {
         let date = req.body.data
         let time = req.body.time
         let connection = new ConnectionDB();
-        connection.addConnection(name,topic,details,creator,date,time,location)
+        connection.addConnection(name, topic, details, creator, date, time, location)
         res.redirect('/connections')
-    } else{
-        res.redirect('/login')
+    } else {
+        res.render('login')
     }
 })
 
-function validateId(id){
-    if(id !== undefined){
-        if(Number.isInteger(Number.parseInt(id))){
+function validateId(id) {
+    if (id !== undefined) {
+        if (Number.isInteger(Number.parseInt(id))) {
             return true;
-        } else{
+        } else {
             return false
         }
-    } else{
+    } else {
         return false
     }
 }

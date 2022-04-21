@@ -12,8 +12,8 @@ var router = express.Router();
 
 
 
-router.post('/register', async function (req,res){
-    
+router.post('/register', async function (req, res) {
+
     let userDB = new UserDB()
     let userProfileDB = new UserProfileDB()
 
@@ -22,40 +22,50 @@ router.post('/register', async function (req,res){
     let email = req.body.email;
     let password = req.body.password;
 
-    userDB.createUser(firstname,lastname,email,password);
+    userDB.createUser(firstname, lastname, email, password);
 
     let user = await userDB.getUser(email);
-    let dbconnections= [];
-    
+    let dbconnections = [];
+
     req.session.user = user
     req.session.userProfile = new UserProfile(user, dbconnections)
-    
+
     let data = {
         userProfile: req.session.userProfile
     }
-    
-    res.render('savedConnections', {user: data.userProfile.user, userConnections: data.userProfile.userConnections})
+
+    res.render('savedConnections', { user: data.userProfile.user, userConnections: data.userProfile.userConnections })
 })
 
-router.post('/login', async function (req,res){
-    
+router.post('/login', async function (req, res) {
+
+
     let userDB = new UserDB()
     let userProfileDB = new UserProfileDB()
     let email = req.body.email
     let password = req.body.password
     let user = await userDB.getUser(email, password);
+
+    console.log(user)
+    if (user === null) {
+        return
+    }
+
     let userProfile = await userProfileDB.getUserProfile(user.id);
+
+
+
     let dbconnections = [];
-    for(let i = 0; i < userProfile.length; i++){
+    for (let i = 0; i < userProfile.length; i++) {
         let connectionDB = new ConnectionDB();
-        let foundConnection =  await connectionDB.getConnection(userProfile[i].connectionID);
+        let foundConnection = await connectionDB.getConnection(userProfile[i].connectionID);
         let rsvp = userProfile[i].rsvp
-        let userConnection =  new UserConnection( foundConnection, rsvp);
+        let userConnection = new UserConnection(foundConnection, rsvp);
         console.log('this is the user connection')
         console.log(userConnection)
         dbconnections.push(userConnection)
     }
-    
+
     console.log('this is the db connections')
     console.log(dbconnections)
     req.session.user = user
@@ -67,43 +77,43 @@ router.post('/login', async function (req,res){
         userProfile: req.session.userProfile
     }
     console.log(data)
-    res.render('savedConnections', {user: data.userProfile.user, userConnections: data.userProfile.userConnections})
+    res.render('savedConnections', { user: data.userProfile.user, userConnections: data.userProfile.userConnections })
 })
 
-router.use('/', function (req, res, next){
-    if(!req.session.user) {
+router.use('/', function (req, res, next) {
+    if (!req.session.user) {
         console.log('no user found')
         res.render("login");
-    } else{
+    } else {
         next();
     }
-  
+
 })
 
-router.get('/', function(req,res){
-    
+router.get('/', function (req, res) {
+
     let data = {
         userProfile: req.session.userProfile
     }
-    res.render('savedConnections', {user: data.userProfile.user, userConnections: data.userProfile.userConnections})
+    res.render('savedConnections', { user: data.userProfile.user, userConnections: data.userProfile.userConnections })
 })
 
-router.post('/rsvp', async function(req,res){
-    if(req.session.user){
+router.post('/rsvp', async function (req, res) {
+    if (req.session.user) {
         let rsvp = req.body.rsvp
         let userProfile = new UserProfile(req.session.userProfile.user, req.session.userProfile.userConnections)
         let connectionId = req.body.id
         let userID = req.session.userProfile.user.id
         let userProfileDB = new UserProfileDB()
-        
-    
-        let connectionDB =new ConnectionDB();
+
+
+        let connectionDB = new ConnectionDB();
         let connection = await connectionDB.getConnection(connectionId);
         let x = 0;
         let userConnections = req.session.userProfile.userConnections
         console.log(userConnections)
-        for(let i = 0; i < userConnections.length; i++){
-            if(userConnections[i].connection.id == connectionId){
+        for (let i = 0; i < userConnections.length; i++) {
+            if (userConnections[i].connection.id == connectionId) {
                 console.log('hello')
                 x = 1;
                 console.log(userProfile)
@@ -112,16 +122,16 @@ router.post('/rsvp', async function(req,res){
                 req.session.userProfile = userProfile;
                 console.log(req.session.userProfile)
                 let data = {
-                user: req.session.userProfile.user,
-                userConnections: req.session.userProfile.userConnections
+                    user: req.session.userProfile.user,
+                    userConnections: req.session.userProfile.userConnections
                 }
-                res.render('savedConnections', {user: data.user, userConnections: data.userConnections})
+                res.render('savedConnections', { user: data.user, userConnections: data.userConnections })
                 break;
             }
         }
-        if (x == 0){
+        if (x == 0) {
             console.log('bye')
-            
+
             userProfile.addConnection(connection, rsvp);
             await userProfileDB.updateRSVP(connectionId, userID, rsvp)
             req.session.userProfile = userProfile;
@@ -129,22 +139,22 @@ router.post('/rsvp', async function(req,res){
                 user: req.session.userProfile.user,
                 userConnections: req.session.userProfile.userConnections
             }
-            res.render('savedConnections', {user: data.user, userConnections: data.userConnections})
+            res.render('savedConnections', { user: data.user, userConnections: data.userConnections })
         }
-        
-    }else{
+
+    } else {
         res.render('login')
     }
 })
 
-router.get('/logout', function(req,res){
+router.get('/logout', function (req, res) {
     req.session.destroy()
     res.redirect('/')
-    
+
 })
 
 
-router.post('/delete', async function(req,res){
+router.post('/delete', async function (req, res) {
     let connectionId = req.body.id
     let userId = req.session.userProfile.user.id
     let connectionDb = new ConnectionDB()
@@ -159,7 +169,7 @@ router.post('/delete', async function(req,res){
         user: req.session.userProfile.user,
         userConnections: req.session.userProfile.userConnections
     }
-    res.render('savedConnections', {user: data.user, userConnections: data.userConnections})
+    res.render('savedConnections', { user: data.user, userConnections: data.userConnections })
 })
 
 

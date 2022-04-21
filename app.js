@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.use(bodyParser.json());      
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var connectionController = require('./controller/connectionController');
 var mainController = require('./controller/mainController');
@@ -17,7 +17,7 @@ app.set('view engine', 'ejs')
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.use(session({secret: 'NBAD',saveUninitialized: true,resave: true}));
+app.use(session({ secret: 'NBAD', saveUninitialized: true, resave: true }));
 
 app.use('/', mainController)
 app.use('/about', connectionController)
@@ -28,6 +28,7 @@ app.use('/savedConnections', userController)
 
 
 
-app.listen(8084);
+app.listen(process.env.PORT || 3000);
+console.log('localhost:3000')
 
 module.exports = app;

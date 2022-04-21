@@ -94,11 +94,18 @@ td {
 button{
     border: none;
     cursor: pointer;
+    
+    
+}
+
+.register{
+ width: 100%;
 }
 button a{
     text-decoration: none;
     color: black;
     font-size: 12px;
+    
 }
 button a:hover{
     color: white;
@@ -168,9 +175,11 @@ input{
 /*styles for submit button*/
 .button{
     background-color: lightblue;
-    width: 65%;
+    width: 10%;
     height: 50px;
     border: none;
+    margin-top: 10px;
+    margin-left: 45%;
 }
 .button:hover{
     color: white;
