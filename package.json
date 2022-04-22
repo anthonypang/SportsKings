@@ -10,5 +10,8 @@
   "scripts": {
     "start": "node app.js",
     "build": "webpack"
-  }
+  },
+  "engines": {
+    "node": "16.14.1"
+}
 }
