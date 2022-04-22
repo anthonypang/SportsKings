@@ -11,8 +11,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "heroku-prebuild": "npm install --dev",
-    "build": "webpack"
+    "heroku-prebuild": "npm install --dev"
   },
   "engines": {
     "node": "16.14.1"
