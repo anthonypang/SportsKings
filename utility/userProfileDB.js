@@ -4,7 +4,7 @@ const User = require('../model/user');
 const UserProfile = require('../model/userProfile')
 const UserConnection = require('../model/userConnection');
 const ConnectionDB = require('./connectionDB');
-mongoose.connect('mongodb://localhost:27017/sportskings', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sportskings', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const userConnectionSchema = new mongoose.Schema({
