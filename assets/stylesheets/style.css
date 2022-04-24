@@ -101,7 +101,7 @@ button{
 .register{
  width: 100%;
 }
-button a{
+.button a{
     text-decoration: none;
     color: black;
     font-size: 12px;
@@ -109,7 +109,7 @@ button a{
     background-color: lightblue;
     
 }
-button a:hover{
+.button a:hover{
     color: white;
 }
 .connection img{

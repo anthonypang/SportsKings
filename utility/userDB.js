@@ -1,7 +1,7 @@
 var Connection = require('../model/connection')
 const mongoose = require('mongoose');
 const User = require('../model/user');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sportskings', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 var userSchema = new mongoose.Schema({
@@ -43,6 +43,7 @@ class UserDB {
     }
 
     createUser(firstname, lastname, email, password) {
+        console.log('find')
         user.findOne().sort('-id').exec((err, doc) => {
             let userModel = new user({
                 id: doc.id + 1,
@@ -51,7 +52,7 @@ class UserDB {
                 email: email,
                 password: password
             })
-
+            console.log('save')
             userModel.save().then((doc) => {
                 let userItem = new User();
 
