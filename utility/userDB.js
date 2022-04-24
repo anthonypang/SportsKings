@@ -48,8 +48,10 @@ class UserDB {
 
         user.find({ email: email }, (err, docs) => {
             if (docs.length) {
-                return null;
+                console.log('user exists')
+                return 0;
             } else {
+                console.log('registering')
                 user.findOne().sort('-id').exec((err, doc) => {
                     let userModel = new user({
                         id: doc.id + 1,
