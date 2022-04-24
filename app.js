@@ -26,9 +26,9 @@ app.use('/connections', connectionController)
 app.use('/savedConnections', userController)
 
 
+const PORT = process.env.PORT || 3000;
 
-
-app.listen(process.env.PORT || 3000);
+app.listen(PORT);
 console.log('localhost:3000')
 
 module.exports = app;
