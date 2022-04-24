@@ -25,7 +25,7 @@ router.post('/register', async function (req, res) {
     let i = userDB.createUser(firstname, lastname, email, password)
 
     if (i == 0) {
-        res.render(register)
+        res.render('register')
         return;
     }
 
