@@ -1,7 +1,7 @@
 var Connection = require('../model/connection')
 const mongoose = require('mongoose');
 const User = require('../model/user');
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sportskings', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 var userSchema = new mongoose.Schema({
@@ -18,6 +18,7 @@ var user = mongoose.model('user', userSchema);
 
 class UserDB {
     constructor() { }
+
 
     getUser(email, password) {
         console.log('getting one connection')
@@ -44,25 +45,36 @@ class UserDB {
 
     createUser(firstname, lastname, email, password) {
         console.log('find')
-        user.findOne().sort('-id').exec((err, doc) => {
-            let userModel = new user({
-                id: doc.id + 1,
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                password: password
-            })
-            console.log('save')
-            userModel.save().then((doc) => {
-                let userItem = new User();
 
-                userItem.setId(doc.id);
-                userItem.setFirstname(doc.firstname);
-                userItem.setLastname(doc.lastname);
-                userItem.setEmail(doc.email);
-                userItem.setPassword(doc.password)
-            })
+        user.find({ email: email }, (err, docs) => {
+            if (docs.length) {
+                return null;
+            } else {
+                user.findOne().sort('-id').exec((err, doc) => {
+                    let userModel = new user({
+                        id: doc.id + 1,
+                        firstname: firstname,
+                        lastname: lastname,
+                        email: email,
+                        password: password
+                    })
+                    console.log('save')
+                    userModel.save().then((doc) => {
+                        let userItem = new User();
+
+                        userItem.setId(doc.id);
+                        userItem.setFirstname(doc.firstname);
+                        userItem.setLastname(doc.lastname);
+                        userItem.setEmail(doc.email);
+                        userItem.setPassword(doc.password)
+                    })
+
+                })
+                return 1;
+            }
         })
+
+
     }
 
 }

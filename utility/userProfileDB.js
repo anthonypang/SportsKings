@@ -4,8 +4,8 @@ const User = require('../model/user');
 const UserProfile = require('../model/userProfile')
 const UserConnection = require('../model/userConnection');
 const ConnectionDB = require('./connectionDB');
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-// || 'mongodb://localhost:27017/sportskings'
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sportskings', { useNewUrlParser: true, useUnifiedTopology: true });
+// 
 
 const userConnectionSchema = new mongoose.Schema({
   //define the schema - this can take place of the model

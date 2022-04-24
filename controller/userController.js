@@ -22,19 +22,26 @@ router.post('/register', async function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
 
-    userDB.createUser(firstname, lastname, email, password);
 
-    let user = await userDB.getUser(email);
-    let dbconnections = [];
+    if (userDB.createUser(firstname, lastname, email, password) == null) {
+        console.log('user already exists')
+        res.render('register')
+    } else {
+        console.log('registered')
+        let user = await userDB.getUser(email);
+        let dbconnections = [];
 
-    req.session.user = user
-    req.session.userProfile = new UserProfile(user, dbconnections)
+        req.session.user = user
+        req.session.userProfile = new UserProfile(user, dbconnections)
 
-    let data = {
-        userProfile: req.session.userProfile
+        let data = {
+            userProfile: req.session.userProfile
+        }
+
+        res.render('savedConnections', { user: data.userProfile.user, userConnections: data.userProfile.userConnections })
     }
 
-    res.render('savedConnections', { user: data.userProfile.user, userConnections: data.userProfile.userConnections })
+
 })
 
 router.post('/login', async function (req, res) {
@@ -171,6 +178,8 @@ router.post('/delete', async function (req, res) {
     }
     res.render('savedConnections', { user: data.user, userConnections: data.userConnections })
 })
+
+
 
 
 
