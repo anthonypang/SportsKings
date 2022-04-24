@@ -20,8 +20,6 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(session({ secret: 'NBAD', saveUninitialized: true, resave: true }));
 
 app.use('/', mainController)
-app.use('/about', connectionController)
-app.use('/contact', connectionController)
 app.use('/connections', connectionController)
 app.use('/savedConnections', userController)
 

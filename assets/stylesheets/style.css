@@ -105,6 +105,8 @@ button a{
     text-decoration: none;
     color: black;
     font-size: 12px;
+    padding: 12px;
+    background-color: lightblue;
     
 }
 button a:hover{
@@ -174,9 +176,7 @@ input{
 
 /*styles for submit button*/
 .button{
-    background-color: lightblue;
-    width: 10%;
-    height: 50px;
+    padding: 10px;
     border: none;
     margin-top: 10px;
     margin-left: 45%;
