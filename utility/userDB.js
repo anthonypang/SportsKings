@@ -46,8 +46,8 @@ class UserDB {
     createUser(firstname, lastname, email, password) {
         console.log('find')
 
-        user.find({ email: email }, (err, docs) => {
-            if (docs.length) {
+        user.exists({ email: email }, (err, doc) => {
+            if (doc) {
                 console.log('user exists')
                 return 0;
             } else {
